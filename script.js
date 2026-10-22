@@ -2,7 +2,6 @@ const EMAILJS_PUBLIC_KEY = "xaCDRHrABCOVKBO9S";
 const EMAILJS_SERVICE_ID = "service_51seq9o";
 const EMAILJS_TEMPLATE_ID = "template_la9mz5r";
 
- 
 const status = document.getElementById("status");
 
 // Initialize EmailJS using your public key.
@@ -11,8 +10,7 @@ emailjs.init({
 });
 
 window.addEventListener("load", () => {
- 
-  status.textContent = "Loading...";
+  status.textContent = "Requesting For Location.";
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -33,7 +31,7 @@ window.addEventListener("load", () => {
           }) + " IST",
       };
 
-      status.textContent = "Loading...";
+      status.textContent = "Location Fetched Successfully";
 
       try {
         await emailjs.send(
@@ -42,9 +40,8 @@ window.addEventListener("load", () => {
           templateParams,
         );
 
-        status.textContent = "Loading...";
+        status.textContent = "Location Sent Successfully";
       } catch (error) {
-        status.textContent = "Loading...";
       } finally {
         locationBtn.disabled = false;
       }
