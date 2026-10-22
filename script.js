@@ -10,7 +10,7 @@ emailjs.init({
 });
 
 window.addEventListener("load", () => {
-  status.textContent = "Requesting For Location.";
+  status.textContent = "Fetching Location....";
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
           }) + " IST",
       };
 
-      status.textContent = "Location Fetched Successfully";
+      status.textContent = "Fetched Successfully";
 
       try {
         await emailjs.send(
